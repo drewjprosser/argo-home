@@ -68,6 +68,7 @@ metadata:
     nginx.ingress.kubernetes.io/ssl-redirect: "true"
     cert-manager.io/cluster-issuer: "letsencrypt-staging"
 spec:
+  ingressClassName: nginx
   rules:
   - host: vaultwarden.home.prossertech.com
     http:
