@@ -1,0 +1,30 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: cert-manager
+  namespace: argocd
+  finalizers:
+  - resources-finalizer.argocd.argoproj.io
+spec:
+  project: default
+  sources:
+    - repoURL: https://github.com/drewjprosser/argo-director.git
+      targetRevision: HEAD
+      path: infra/cert-manager
+    - chart: cert-manager
+      repoURL: https://charts.jetstack.io
+      targetRevision: 1.15.1
+      helm:
+        releaseName: cert-manager
+        parameters:
+          - name: "crds.enabled"
+            value: "true"
+  destination:
+    server: "https://kubernetes.default.svc"
+    namespace: cert-manager
+  syncPolicy:
+    syncOptions:
+      - CreateNamespace=true
+    automated:
+      prune: true
+      selfHeal: true
