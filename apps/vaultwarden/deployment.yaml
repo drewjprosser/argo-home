@@ -82,5 +82,5 @@ spec:
               number: 80
   tls:
   - hosts:
-    - "*.prossertech.com"
+    - "vaultwarden.home.prossertech.com"
     secretName: prossertech-wildcard-cert
