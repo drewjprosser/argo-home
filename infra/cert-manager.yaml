@@ -8,7 +8,7 @@ metadata:
 spec:
   project: default
   sources:
-    - repoURL: https://github.com/drewjprosser/argo-director.git
+    - repoURL: https://github.com/drewjprosser/argo-home.git
       targetRevision: HEAD
       path: infra/cert-manager
     - chart: cert-manager
