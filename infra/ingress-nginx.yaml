@@ -1,0 +1,39 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: ingress-nginx
+  namespace: argocd
+  finalizers:
+  - resources-finalizer.argocd.argoproj.io
+spec:
+  project: default
+  source:
+    chart: ingress-nginx
+    repoURL: https://kubernetes.github.io/ingress-nginx
+    targetRevision: 4.10.1
+    helm:
+      releaseName: ingress-nginx
+      valuesObject:
+        controller:
+          ingressClassResources:
+            default: "true"
+          extraArgs:
+            enable-ssl-passthrough: ""
+          allowSnippetAnnotations: "true"
+          service:
+            annotations:
+              # "io.cilium/lb-ipam-ips": "10.10.10.100"
+              "lbipam.cilium.io/sharing-key": "1234"
+              "lbipam.cilium.io/sharing-cross-namespace": "*"
+  destination:
+    server: "https://kubernetes.default.svc"
+    namespace: ingress-nginx
+  syncPolicy:
+    managedNamespaceMetadata:
+      annotations:
+        lbipam.cilium.io/sharing-cross-namespace: "*"
+    syncOptions:
+      - CreateNamespace=true
+    automated:
+      prune: true
+      selfHeal: true
