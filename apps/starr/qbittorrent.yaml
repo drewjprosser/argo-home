@@ -106,6 +106,7 @@ metadata:
   labels:
     name: qbittorrent-http
 spec:
+  ingressClassName: nginx
   rules:
   - host: qbittorrent.home.prossertech.com
     http:
