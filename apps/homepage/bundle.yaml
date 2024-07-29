@@ -141,7 +141,6 @@ metadata:
   namespace: homepage
   labels:
     app.kubernetes.io/name: homepage
-  annotations:
 spec:
   type: ClusterIP
   ports:
@@ -232,6 +231,7 @@ metadata:
     gethomepage.dev/icon: homepage.png
     gethomepage.dev/name: Homepage
 spec:
+  ingressClassName: nginx
   rules:
     - host: "home.home.prossertech.com"
       http:
