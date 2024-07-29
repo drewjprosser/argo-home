@@ -42,7 +42,7 @@ spec:
             add: ["NET_ADMIN"]
         resources:
           limits:
-            memory: "2Gi"
+            memory: "1Gi"
             cpu: "500m"
         ports:
         - containerPort: 8080
@@ -62,7 +62,7 @@ spec:
         - name: VPN_KEEP_LOCAL_DNS
           value: "false"
         - name: VPN_FIREWALL_TYPE
-          values: "auto"
+          value: "auto"
         - name: VPN_HEALTHCHECK_ENABLED
           value: "true"
         - name: PRIVOXY_ENABLED
