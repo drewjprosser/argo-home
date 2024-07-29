@@ -5,15 +5,15 @@ metadata:
 data:
   wg0.conf: |
     [Interface]
-    PrivateKey = cK1xk2usKjKap0rboVt6oNyd6VSpWE5HYBOc5OZ8iWs=
-    Address = 100.74.155.128/32
+    PrivateKey = iNC0NYHvF9dNmBEc+6yboJxcx0YoMRZ/M0pJxQBe32w=
+    Address = 100.97.0.200/32
     DNS = 10.255.255.1
 
     [Peer]
-    PublicKey = c31sdkhmVsucRVa6nSNNSiZ2UHHLdUhq5gvfdJxSnFw=
-    PresharedKey = Y/7qWF2CBYk16GUG5tVOW1VkIE4J6EC/gdJF5s5Pn18=
+    PublicKey = XF69enunWI6bbHHwgRbE/jAvuM6plb4kyGcObYKvLVc=
     AllowedIPs = 0.0.0.0/0, ::/0
-    Endpoint = den-145-wg.whiskergalaxy.com:65142
+    Endpoint = las-183-wg.whiskergalaxy.com:65142
+    PresharedKey = lRWpa694yrysFGXNStW95JMtNZ1OkdgHiXBMabRTSJ0=
 ---
 apiVersion: apps/v1
 kind: Deployment
