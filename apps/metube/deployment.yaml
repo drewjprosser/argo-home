@@ -1,0 +1,75 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: metube
+  namespace: metube
+spec:
+  selector:
+    matchLabels:
+      app: metube
+  template:
+    metadata:
+      labels:
+        app: metube
+    spec:
+      securityContext:
+        runAsUser: 1001
+        runAsGroup: 1001
+      containers:
+      - name: metube
+        image: ghcr.io/alexta69/metube
+        imagePullPolicy: Always
+        resources:
+          limits:
+            memory: "512Mi"
+            cpu: "300m"
+        ports:
+        - containerPort: 8081
+        volumeMounts:
+          - name: downloads 
+            mountPath: /downloads
+          - name: cookies
+            mountPath: /cookies
+      volumes:
+        - name: downloads
+          nfs:
+            server: storage-pve-02.int.prossertech.com
+            path: /data/rke/metube/downloads
+        - name: cookies
+          nfs:
+            server: storage-pve-02.int.prossertech.com
+            path: /data/rke/metube/cookies
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: metube-http
+  namespace: metube
+spec:
+  selector:
+    app: metube
+  ports:
+  - name: http
+    protocol: TCP
+    port: 80
+    targetPort: 8081
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: metube-http-ingress
+  labels:
+    name: metube-http-ingress
+spec:
+  ingressClassName: nginx
+  rules:
+  - host: metube.home.prossertech.com
+    http:
+      paths:
+      - pathType: Prefix
+        path: "/"
+        backend:
+          service:
+            name: metube-http
+            port: 
+              number: 80
