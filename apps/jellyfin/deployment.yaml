@@ -103,6 +103,14 @@ metadata:
   name: jellyfin-http
   labels:
     name: jellyfin-http
+  annotations:
+    gethomepage.dev/enabled: "true"
+    gethomepage.dev/description: Media Server
+    gethomepage.dev/group: Media
+    gethomepage.dev/name: Jellyfin
+    gethomepage.dev/widget.type: "jellyfin"
+    gethomepage.dev/widget.url: "http://jellyfin.home.prossertech.com"
+    gethomepage.dev/pod-selector: ""
 spec:
   ingressClassName: nginx
   rules:
