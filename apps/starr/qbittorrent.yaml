@@ -28,12 +28,6 @@ spec:
       labels:
         app: qbittorrent
     spec:
-      securityContext:
-        sysctls:
-          - name: net.ipv4.conf.all.src_valid_mark
-            value: "1"
-          - name: net.ipv6.conf.all.disable_ipv6
-            value: "1"
       containers:
       - name: qbittorrent
         image: hotio/qbittorrent:latest
@@ -72,6 +66,10 @@ spec:
         volumeMounts:
         - name: wg-conf
           mountPath: /config/wireguard
+        - name: config 
+          mountPath: /config
+        - name: data
+          mountPath: /data
       volumes:
       - name: wg-conf
         configMap:
@@ -79,4 +77,42 @@ spec:
           items:
           - key: wg0.conf 
             path: wg0.conf
-      
+      - name: config
+        nfs:
+          server: storage-pve-02.int.prossertech.com
+          path: /data/rke/qbittorrent
+      - name: data
+        nfs:
+          server: storage-pve-02.int.prossertech.com
+          path: /data/media/torrents
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: qbittorrent-http
+spec:
+  selector:
+    app: qbittorrent
+  ports:
+  - name: http
+    port: 8080
+    targetPort: 8080
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: qbittorrent-http
+  labels:
+    name: qbittorrent-http
+spec:
+  rules:
+  - host: qbittorrent.home.prossertech.com
+    http:
+      paths:
+      - pathType: Prefix
+        path: "/"
+        backend:
+          service:
+            name: qbittorrent-http
+            port: 
+              number: 8080
