@@ -48,7 +48,7 @@ spec:
         - name: VPN_AUTO_PORT_FORWARD
           value: "false"
         - name: VPN_KEEP_LOCAL_DNS
-          value: "false"
+          value: "true"
         - name: VPN_FIREWALL_TYPE
           value: "auto"
         - name: VPN_HEALTHCHECK_ENABLED
