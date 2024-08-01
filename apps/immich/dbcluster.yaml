@@ -2,6 +2,7 @@ apiVersion: postgresql.cnpg.io/v1
 kind: Cluster
 metadata:
   name: immich-pg
+  namespace: immich
 spec:
   enableSuperuserAccess: true
   instances: 3
