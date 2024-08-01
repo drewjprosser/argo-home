@@ -36,10 +36,7 @@ spec:
                 paths:
                 - path: "/"
         postgresql:
-          global:
-            postgresql:
-              auth:
-                existingSecret: immich-pg-superuser
+          enabled: true
         immich:
           persistence:
             library:
