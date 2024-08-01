@@ -1,0 +1,47 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: immich
+  namespace: argocd
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  project: default
+  sources:
+  - repoURL: https://github.com/drewjprosser/argo-home.git
+    targetRevision: HEAD 
+    path: apps/immich
+  - repoURL: https://immich-app.github.io/immich-charts
+    targetRevision: 0.7.1
+    chart: immich
+    helm:
+      releaseName: immich
+      valuesObject:
+        server:
+          ingress:
+            main:
+              hosts:
+              - host: immich.home.prossertech.com
+                paths:
+                - path: "/"
+        postgresql:
+          global:
+            postgresql:
+              auth:
+                existingSecret: immich-pg-superuser
+        immich:
+          persistence:
+            library:
+              existingClaim: library
+        redis:
+          enabled: true
+        
+  destination:
+    server: "https://kubernetes.default.svc"
+    namespace: immich
+  syncPolicy:
+    syncOptions:
+      - CreateNamespace=true
+    automated:
+      prune: true
+      selfHeal: true
