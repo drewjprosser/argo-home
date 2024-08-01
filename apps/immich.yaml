@@ -17,11 +17,16 @@ spec:
     helm:
       releaseName: immich
       valuesObject:
+        env: 
+        DB_HOSTNAME: immich-pg-rw.immich.svc.cluster.local
         image:
           tag: v1.111.0
         server:
           probes: 
            liveness:
+             spec:
+               initialDelaySeconds: 60
+           readiness:
              spec:
                initialDelaySeconds: 60
           ingress:
