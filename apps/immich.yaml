@@ -18,6 +18,10 @@ spec:
       releaseName: immich
       valuesObject:
         server:
+          livenessProbe:
+            initialDelaySeconds: 60
+          readinessProbe:
+            initialDelaySeconds: 60
           ingress:
             main:
               hosts:
