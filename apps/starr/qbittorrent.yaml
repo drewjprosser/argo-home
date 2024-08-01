@@ -11,7 +11,7 @@ data:
 
     [Peer]
     PublicKey = XF69enunWI6bbHHwgRbE/jAvuM6plb4kyGcObYKvLVc=
-    AllowedIPs = 0.0.0.0/0, ::/0
+    AllowedIPs = 0.0.0.0/0
     Endpoint = las-183-wg.whiskergalaxy.com:65142
     PresharedKey = lRWpa694yrysFGXNStW95JMtNZ1OkdgHiXBMabRTSJ0=
 ---
@@ -19,6 +19,8 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: qbittorrent
+  annotations:
+    reloader.stakater.com/auto: "true"
 spec:
   selector:
     matchLabels:
