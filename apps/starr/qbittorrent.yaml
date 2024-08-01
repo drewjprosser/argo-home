@@ -47,6 +47,7 @@ spec:
             memory: "1Gi"
             cpu: "500m"
         ports:
+        - containerPort: 53
         - containerPort: 8080
         - containerPort: 65142
         env:
