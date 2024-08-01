@@ -20,6 +20,10 @@ spec:
         image:
           tag: v1.111.0
         server:
+          probes: 
+           liveness:
+             spec:
+               initialDelaySeconds: 60
           ingress:
             main:
               hosts:
@@ -35,6 +39,7 @@ spec:
           persistence:
             library:
               existingClaim: library
+
         redis:
           enabled: true
         
