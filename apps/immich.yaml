@@ -17,11 +17,9 @@ spec:
     helm:
       releaseName: immich
       valuesObject:
+        image:
+          tag: v1.111.0
         server:
-          livenessProbe:
-            initialDelaySeconds: 60
-          readinessProbe:
-            initialDelaySeconds: 60
           ingress:
             main:
               hosts:
