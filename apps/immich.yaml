@@ -29,6 +29,7 @@ spec:
                initialDelaySeconds: 60
           ingress:
             main:
+              enabled: true
               hosts:
               - host: immich.home.prossertech.com
                 paths:
