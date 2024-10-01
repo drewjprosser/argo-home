@@ -36,6 +36,15 @@ spec:
                 - path: "/"
         postgresql:
           enabled: true
+          probes:
+            liveness:
+              spec: 
+                initialDelaySeconds: 120
+                failureThreshold: 15
+            readiness:
+              spec:
+                initialDelaySeconds: 60
+                failureThreshold: 15
         immich:
           persistence:
             library:
